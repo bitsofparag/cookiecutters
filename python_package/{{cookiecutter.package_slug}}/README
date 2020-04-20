@@ -1,0 +1,27 @@
+======================
+{{cookiecutter.package_name}}
+======================
+
+.. image:: https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_template.svg
+     :target: https://{{cookiecutter.git_provider}}.com/{{cookiecutter.git_user_or_group_name}}/{{cookiecutter.package_slug}}
+     :alt: Updates
+
+{{cookiecutter.package_description}}
+
+* GitHub repo: https://{{cookiecutter.git_provider}}.com/{{cookiecutter.git_user_or_group_name}}/{{cookiecutter.package_slug}}
+* Documentation: https://{{cookiecutter.git_provider}}.com/{{cookiecutter.git_user_or_group_name}}/{{cookiecutter.package_slug}}/docs
+* Free software: {{cookiecutter.license}}
+
+Features
+--------
+
+Setup and Usage
+---------------
+
+
+Build Status
+------------
+
+
+Contributing Guidelines
+-----------------------

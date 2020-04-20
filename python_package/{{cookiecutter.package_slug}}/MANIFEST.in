@@ -1,0 +1,3 @@
+include README* AUTHORS LICENSE CHANGELOG.rst setup.py setup.cfg
+recursive-include . *.json *.ini
+global-exclude __pycache__ *.pyc *.log

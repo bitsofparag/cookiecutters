@@ -1,0 +1,18 @@
+{
+  "package_name": "My Module",
+  "package_version": "0.1.0",
+  "package_slug": "{{ cookiecutter.package_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "package_description": "Python package for {{ cookiecutter.package_name }}",
+  "package_namespace": "NBT",
+  "package_deps": "e.g foo,bar>=3.0",
+  "author_name": "NBT Engineering",
+  "author_email": "engineering@nbt.ag",
+  "python_version": "3.8",
+  "module_name": "",
+  "include_custom_logger": ["yes", "no"],
+  "entry_point": ["none", "cli", "gui"],
+  "sentry_dsn": "",
+  "license": ["MIT", "BSD-3", "GNU GPL v3.0", "Apache 2.0", "Mozilla 2.0"],
+  "git_provider": ["gitlab", "github"],
+  "git_user_or_group_name": "nbt-standard-platform"
+}
