@@ -1,0 +1,7 @@
+{%- if cookiecutter.package_deps != "e.g foo,bar>=3.0" -%}
+{%- set deps = cookiecutter.package_deps.split(',') -%}
+{%- for dep in deps %}
+{{dep}}
+{%- endfor -%}
+{% endif %}
+sentry-sdk>=0.14.3

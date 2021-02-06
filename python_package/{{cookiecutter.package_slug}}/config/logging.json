@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "simple": {
+      "format": "[%(levelname)s][%(asctime)s] : %(message)s"
+    }
+  },
+
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "level": "NOTSET",
+      "formatter": "simple",
+      "stream": "ext://sys.stdout"
+    },
+
+    "sentry_handler": {
+      "level": "ERROR",
+      "class": "sentry_sdk.integrations.logging.EventHandler"
+    }
+  },
+
+  "loggers": {
+    "development": {
+      "level": "DEBUG",
+      "handlers": ["console"],
+      "propagate": "no"
+    },
+    "testing": {
+      "level": "DEBUG",
+      "handlers": ["console"],
+      "propagate": "no"
+    },
+    "staging": {
+      "level": "INFO",
+      "handlers": ["console"],
+      "propagate": "no"
+    },
+    "production": {
+      "level": "ERROR",
+      "handlers": ["sentry_handler"],
+      "propagate": "no"
+    }
+  }
+}

@@ -6,7 +6,7 @@ Appendix C. Changelog
 :Copyright: © {% now 'utc', '%Y' %}, {{ cookiecutter.author_name }}.
 :License: {{cookiecutter.license}}, see LICENSE for more details.
 :Date: {% now 'utc', '%Y' %}
-:Version: {{ cookiecutter.package_version }}
+:Version: 0.1.0
 
 .. index:: CHANGELOG
 
@@ -14,10 +14,10 @@ Appendix C. Changelog
 ==========================
 
 More information can be found on {{cookiecutter.git_provider}} in the `releases section
-<https://{{cookiecutter.git_provider}}.com/{{ cookiecutter.git_user_or_group_name }}/{{ cookiecutter.package_slug }}/releases>`_.
+<https://{{cookiecutter.git_provider}}.com/{{ cookiecutter.git_user_or_group_name }}/{{ cookiecutter.package_slug }}/-/releases>`.
 
 Version History
 ===============
 
-{{cookiecutter.package_version}}
+0.1.0
     Initial release.

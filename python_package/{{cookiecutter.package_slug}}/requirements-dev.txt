@@ -1,0 +1,3 @@
+watchdog>=0.10.2
+Sphinx>=3.0.0
+rinohtype>=0.4.0

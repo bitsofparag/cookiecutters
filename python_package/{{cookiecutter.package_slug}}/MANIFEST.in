@@ -1,3 +1,7 @@
-include README* AUTHORS LICENSE CHANGELOG.rst setup.py setup.cfg
+include README* AUTHORS LICENSE CHANGELOG.rst setup.py setup.cfg requirements.txt
+{%- if cookiecutter.is_aws_lambda == "yes" %}
 recursive-include . *.json *.ini
+{%- else %}
+recursive-include {{cookiecutter.package_slug}} *.json *.ini
+{%- endif %}
 global-exclude __pycache__ *.pyc *.log

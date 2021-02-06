@@ -1,13 +1,15 @@
+"""Setuptools package file for {{cookiecutter.package_name}}."""
 import io
 from os import environ, path
 from setuptools import setup, find_packages
 
 AUTHOR = environ.get('AUTHOR', '{{cookiecutter.author_name}}')
 AUTHOR_EMAIL = environ.get('AUTHOR_EMAIL', '{{cookiecutter.author_email}}')
-PACKAGE_VERSION = environ.get('PACKAGE_VERSION', '{{cookiecutter.package_version}}')
+PACKAGE_VERSION = environ.get('PACKAGE_VERSION', '0.1.0')
 
 here = path.abspath(path.dirname(__file__))
 readme = io.open(path.join(here, 'README'), 'r', encoding='utf-8').read()
+requirements = io.open(path.join(here, 'requirements.txt'), 'r').read().splitlines()
 
 
 setup(
@@ -28,20 +30,7 @@ setup(
     setup_requires=['wheel'],
     include_package_data=True,
     zip_safe=False,
-    install_requires=[
-{%- if cookiecutter.package_deps != "e.g foo,bar>=3.0" -%}
-  {%- set deps = cookiecutter.package_deps.split(',') -%}
-  {%- for dep in deps %}
-        '{{dep}}',
-  {%- endfor -%}
-{%- endif -%}
-{%- if cookiecutter.sentry_dsn != "" %}
-        'sentry-sdk>=0.14.3',
-{%- endif -%}
-{%- if cookiecutter.include_custom_logger == "yes" %}
-        'colorlog>=4.1.0',
-{%- endif %}
-    ],
+    install_requires=requirements,
     classifiers=[
         'Development Status :: 1 - Planning',
         'Programming Language :: Python :: 3',
@@ -65,7 +54,11 @@ setup(
         'gui_scripts': [ {%- else %}
         'console_scripts': [
     {%- endif %}
-            '{{ cookiecutter.package_slug }} = {{ cookiecutter.package_slug }}.__main__:main',
+            {%- if cookiecutter.is_aws_lambda == "no" %}
+            '{{ cookiecutter.package_slug }} = {{ cookiecutter.package_slug }}.main:main',
+            {%- else %}
+            '{{ cookiecutter.package_slug }} = handler',
+            {%- endif %}
         ],
     },
 {% endif -%}
