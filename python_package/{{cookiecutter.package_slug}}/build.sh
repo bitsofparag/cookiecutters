@@ -2,7 +2,8 @@
 set -eou pipefail
 
 ENVIRONMENT=${ENVIRONMENT:-development}
-PYTHON_VERSION=${PYTHON_VERSION:-3.7}
+PYTHON_VERSION={{cookiecutter.python_version}}
+PYTHON_MM_VERSION={% set split_list = cookiecutter.python_version.split('.') %}{{split_list[0]}}.{{split_list[1]}}
 PACKAGE_VERSION=${PACKAGE_VERSION:-0.1-$ENVIRONMENT}
 PAYLOAD_NAME=payload-$PACKAGE_VERSION.zip
 TMP_VENV=tmp-venv
@@ -14,7 +15,7 @@ rm -rf $TMP_VENV
 rm -rf *.log
 
 echo "[2/9] Create a new tmp virtual env"
-python${PYTHON_VERSION} -m venv ./$TMP_VENV
+python -m venv ./$TMP_VENV
 
 echo "[3/9] Activating virtual env with python venv"
 source $TMP_VENV/bin/activate
@@ -24,22 +25,18 @@ pip install -r requirements.txt
 
 echo "[5/9] Packaging dependencies"
 PROJECT_ROOT=$(pwd)
-cd $VIRTUAL_ENV/lib/python$PYTHON_VERSION/site-packages/
+cd $VIRTUAL_ENV/lib/python$PYTHON_MM_VERSION/site-packages/
 zip -r9 $PROJECT_ROOT/dist/$PAYLOAD_NAME . -x 'easy_install.py' 'pip*' 'pkg_resources*' 'setuptools*'
 cd -
 
 echo "[6/9] Compiling and creating payload.zip"
 if [[ -f setup.py ]]; then
-    if [[ $ENVIRONMENT -eq "development" ]]; then
-        python setup.py -e .
-    else
-        python setup.py sdist
-        python setup.py bdist_wheel
-        ls -l dist
-    fi
+    python setup.py sdist
+    python setup.py bdist_wheel
+    ls -l dist
 else
   python3 -m compileall .
-  zip -rg dist/$PAYLOAD_NAME {% if cookiecutter.is_aws_lambda == "yes" %}handler.py{% else %}main.py{% endif %} config utils # Append more modules
+  zip -rg dist/$PAYLOAD_NAME {% if cookiecutter.is_aws_lambda == "yes" %}handler.py{% else %}{{cookiecutter.package_slug}}{% endif %} config utils # Append more modules
   zip -rg dist/$PAYLOAD_NAME . -i *.py  # Add python files
 fi
 

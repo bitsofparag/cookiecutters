@@ -1,1 +1,1 @@
-Replace this line with pyenv virtualenv name
+{{cookiecutter.package_slug}}

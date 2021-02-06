@@ -35,7 +35,7 @@ export PRINT_HELP_PYSCRIPT
 SRC=.  # Update with correct path of src files
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
 PACKAGE_VERSION ?= 0.1-$(ENVIRONMENT)
-PYTHON_VERSION ?= 3.7
+PYTHON_VERSION ?= {{cookiecutter.python_version}}
 PAYLOAD_NAME := payload-$(PACKAGE_VERSION).zip
 TMP_VENV := tmp-venv
 PROJECT_ROOT := $(PWD)

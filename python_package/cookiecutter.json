@@ -3,14 +3,14 @@
   "package_version": "0.1.0",
   "package_slug": "{{ cookiecutter.package_name.lower().replace(' ', '_').replace('-', '_') }}",
   "package_description": "Python package for {{ cookiecutter.package_name }}",
-  "package_namespace": "NBT",
+  "package_namespace": "Foo",
   "package_deps": "e.g foo,bar>=3.0",
-  "author_name": "NBT Engineering",
-  "author_email": "engineering@nbt.ag",
-  "python_version": "3.8",
+  "author_name": "Parag M",
+  "author_email": "user@example.com",
+  "python_version": "3.8.6",
   "code_style": ["pycodestyle", "flake8"],
   "code_formatter": ["yapf", "flake8"],
-  "is_aws_lambda": ["yes", "no"],
+  "is_aws_lambda": ["no", "yes"],
   "include_custom_utils": ["no", "yes"],
   "entry_point": ["none", "cli", "gui"],
   "build_script": ["build.sh", "Makefile"],
@@ -18,5 +18,5 @@
   "sentry_dsn": "",
   "license": ["MIT", "BSD-3", "GNU GPL v3.0", "Apache 2.0", "Mozilla 2.0"],
   "git_provider": ["gitlab", "github"],
-  "git_user_or_group_name": "nbt-standard-platform"
+  "git_user_or_group_name": "parag_m"
 }
