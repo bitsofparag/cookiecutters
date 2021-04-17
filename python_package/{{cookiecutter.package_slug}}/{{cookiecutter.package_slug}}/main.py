@@ -12,13 +12,14 @@ Basic usage:
 :license: {{cookiecutter.license}}, see LICENSE for more details.
 """
 import logging
+import sys
 from os import path
 
 from decouple import config
 {% if cookiecutter.include_custom_utils == "yes" -%}
 import logging.config
 from .logger import get_logger
-{%- endif %}
+{%- endif -%}
 
 SETTINGS = dict()
 SENTRY_DSN = config('SENTRY_DSN', default=False)
@@ -26,8 +27,8 @@ here = path.abspath(path.dirname(__file__))
 {% if cookiecutter.include_custom_utils == "yes" -%}
 logger = get_logger('{{cookiecutter.package_slug}}')
 {%- else -%}
+logging.basicConfig(format='%(levelname)s - %(message)s', stream=sys.stdout, level=logging.DEBUG)
 logger = logging.getLogger('{{cookiecutter.package_slug}}')
-logger.setLevel(logging.DEBUG)
 {%- endif %}
 
 # Sentry integration

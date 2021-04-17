@@ -2,6 +2,7 @@
 """Setuptools package file for {{cookiecutter.package_name}}."""
 import io
 from os import environ, path
+
 from setuptools import find_packages, setup
 
 AUTHOR = environ.get('AUTHOR', '{{cookiecutter.author_name}}')
