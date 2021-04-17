@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+{% if cookiecutter.build_script == "build.sh" -%}
+echo "==> Running isort..."
+isort . --ac -c
+echo "==> Running flake8..."
+flake8 .
+{% else -%}
+echo "==> Running isort..."
+make format
+echo "==> Running flake8..."
+make lint
+{% endif -%}
+
+echo "==> Running tests..."
+make test
+
+
+# ln -s pre-commit .git/hooks/pre-commit

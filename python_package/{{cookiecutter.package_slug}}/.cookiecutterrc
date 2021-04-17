@@ -1,0 +1,18 @@
+# `cookiepatcher` is a convenient shim around `cookiecutter`
+# for regenerating projects (it will generate a .cookiecutterrc
+# automatically for any template). To use it:
+#    pip install cookiepatcher
+#    cookiepatcher nbt-standard-platform/cookiecutters/backend_project project-path
+#
+# Alternatively, instead of cookiepatcher, you can run:
+#
+#    cookiecutter --overwrite-if-exists --config-file=project-path/.cookiecutterrc nbt-standard-platform/cookiecutters/backend_project
+
+default_context:
+{% for key, value in cookiecutter.items()|sort %}
+{%- if ('secret' in key) or ('password' in key) %}
+    {{ "{0:26}".format(key + ":") }} ''
+{%- else %}
+    {{ "{0:26}".format(key + ":") }} {{ "{0!r}".format(value).strip("u") }}
+{%- endif -%}
+{%- endfor %}

@@ -1,7 +1,8 @@
+# flake8: noqa
 """Setuptools package file for {{cookiecutter.package_name}}."""
 import io
 from os import environ, path
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 AUTHOR = environ.get('AUTHOR', '{{cookiecutter.author_name}}')
 AUTHOR_EMAIL = environ.get('AUTHOR_EMAIL', '{{cookiecutter.author_email}}')

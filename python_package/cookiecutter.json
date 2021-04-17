@@ -8,15 +8,15 @@
   "author_name": "Parag M",
   "author_email": "user@example.com",
   "python_version": "3.8.6",
-  "code_style": ["pycodestyle", "flake8"],
-  "code_formatter": ["yapf", "flake8"],
+  "code_style": ["flake8", "pycodestyle"],
+  "code_formatter": ["flake8"],
   "is_aws_lambda": ["no", "yes"],
   "include_custom_utils": ["no", "yes"],
   "entry_point": ["none", "cli", "gui"],
-  "build_script": ["build.sh", "Makefile"],
-  "dist_packager": ["compileall", "setuptools"],
+  "build_script": ["Makefile", "build.sh"],
+  "dist_packager": ["setuptools", "compileall"],
   "sentry_dsn": "",
   "license": ["MIT", "BSD-3", "GNU GPL v3.0", "Apache 2.0", "Mozilla 2.0"],
-  "git_provider": ["gitlab", "github"],
-  "git_user_or_group_name": "parag_m"
+  "git_provider": ["none", "gitlab", "github"],
+  "git_user_or_group_name": ""
 }

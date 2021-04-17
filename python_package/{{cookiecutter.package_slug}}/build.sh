@@ -1,10 +1,9 @@
 #!/bin/bash
 set -eou pipefail
 
-ENVIRONMENT=${ENVIRONMENT:-development}
 PYTHON_VERSION={{cookiecutter.python_version}}
 PYTHON_MM_VERSION={% set split_list = cookiecutter.python_version.split('.') %}{{split_list[0]}}.{{split_list[1]}}
-PACKAGE_VERSION=${PACKAGE_VERSION:-0.1-$ENVIRONMENT}
+PACKAGE_VERSION=${PACKAGE_VERSION:-0.1}
 PAYLOAD_NAME=payload-$PACKAGE_VERSION.zip
 TMP_VENV=tmp-venv
 
@@ -36,7 +35,7 @@ if [[ -f setup.py ]]; then
     ls -l dist
 else
   python3 -m compileall .
-  zip -rg dist/$PAYLOAD_NAME {% if cookiecutter.is_aws_lambda == "yes" %}handler.py{% else %}{{cookiecutter.package_slug}}{% endif %} config utils # Append more modules
+  zip -rg dist/$PAYLOAD_NAME {%- if cookiecutter.is_aws_lambda == "yes" -%}handler.py{%- else -%}main.py{% endif %} config utils # Append more modules
   zip -rg dist/$PAYLOAD_NAME . -i *.py  # Add python files
 fi
 

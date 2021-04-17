@@ -11,40 +11,37 @@ Basic usage:
 :copyright: (c) {% now 'utc', '%Y' %} {{cookiecutter.author_name}}.
 :license: {{cookiecutter.license}}, see LICENSE for more details.
 """
-from os import environ, path
 import logging
+from os import path
+
+from decouple import config
 {% if cookiecutter.include_custom_utils == "yes" -%}
 import logging.config
 from .logger import get_logger
-{% endif -%}
+{%- endif %}
 
-
-ENVIRONMENT = environ.get('ENVIRONMENT', 'development')
 SETTINGS = dict()
-{% if cookiecutter.include_custom_utils == "yes" %}
-logger = get_logger(ENVIRONMENT)
-{% else %}
-logger = logging.getLogger(ENVIRONMENT)
+SENTRY_DSN = config('SENTRY_DSN', default=False)
+here = path.abspath(path.dirname(__file__))
+{% if cookiecutter.include_custom_utils == "yes" -%}
+logger = get_logger('{{cookiecutter.package_slug}}')
+{%- else -%}
+logger = logging.getLogger('{{cookiecutter.package_slug}}')
 logger.setLevel(logging.DEBUG)
-{% endif %}
+{%- endif %}
 
-{% if cookiecutter.sentry_dsn != "" %}
 # Sentry integration
-if (
-    (ENVIRONMENT == 'staging' or ENVIRONMENT == 'production')
-    and environ.get('SENTRY_DSN')
-):
+if (SENTRY_DSN):
+    import sentry_sdk
+    from sentry_sdk.integrations.logging import LoggingIntegration
+
     sentry_logging = LoggingIntegration(
         level=logging.WARNING,  # Capture warnings and above as breadcrumbs
         event_level=logging.ERROR
     )  # Send errors as events
     # if environment is staging or production, enable sentry
-    sentry_sdk.init(
-        dsn=environ.get('SENTRY_DSN'),
-        integrations=[sentry_logging],
-        environment=ENVIRONMENT
-    )
-{% endif %}
+    sentry_sdk.init(dsn=SENTRY_DSN, integrations=[sentry_logging])
+
 
 def main(*args, **kwargs):
     """Print hello world.

@@ -34,15 +34,16 @@ production
 ---
 ERROR and CRITICAL logs - Sentry as well as a rotating file handler called `production.log`
 """
-from os import environ, path
 import json
-import platform
 import logging
 import logging.config
+import platform
+from os import path
+
+from decouple import config
 
 
-ENVIRONMENT = environ.get('ENVIRONMENT', 'development')
-SENTRY_DSN = environ.get('SENTRY_DSN')
+SENTRY_DSN = config('SENTRY_DSN', default=False)
 HOSTNAME = platform.node()
 
 
@@ -66,4 +67,4 @@ def get_logger(name):
             config["loggers"]["staging"]["handlers"].append("sentry")
             config["loggers"]["production"]["handlers"].append("sentry")
         logging.config.dictConfig(config)
-    return logging.getLogger(name or ENVIRONMENT)
+    return logging.getLogger(name or __file__)

@@ -30,6 +30,7 @@ if __name__ == "__main__":
     build_script = "{{cookiecutter.build_script}}"
     code_formatter = "{{cookiecutter.code_formatter}}"
     python_version = "{{cookiecutter.python_version}}"
+    git_provider = "{{cookiecutter.git_provider}}"
 
     if include_custom_utils == "no":
         # Keep the config directory but remove the logging.json file
@@ -59,19 +60,17 @@ if __name__ == "__main__":
 
     if build_script == "build.sh":
         unlink_if_exists('Makefile')
+        subprocess.run(["chmod", "+x", "build.sh"])
     else:
         unlink_if_exists('build.sh')
-
-    if code_formatter != "yapf":
-        # .style.yapf file if we are not using yapf
-        unlink_if_exists('.style.yapf')
 
     # Create virtualenv with pyenv
     subprocess.run(["pyenv", "virtualenv", python_version, package_src])
     subprocess.run(["cp", ".python-version.example", ".python-version"])
 
-    subprocess.run(["chmod", "+x", "build.sh"])
-
+    if git_provider != "none":
+        subprocess.run(["git", "init", "."])
+        subprocess.run(["ln", "-s", "pre-commit", ".git/hooks/pre-commit"])
 
 
     print("""

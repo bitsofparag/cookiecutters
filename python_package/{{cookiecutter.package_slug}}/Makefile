@@ -10,8 +10,8 @@ include .env
 export
 endif
 
-ifeq ($(ENVIRONMENT), $(filter $(ENVIRONMENT), staging production))
-include .env.production
+ifeq ($(ENVIRONMENT), $(filter $(ENVIRONMENT), staging prod))
+include .env.$(ENVIRONMENT)
 export
 endif
 
@@ -64,8 +64,15 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
+test: ## run tests
+	ENVIRONMENT=test nose2 -v --pretty-assert
+
 lint: ## check style with flake8
 	flake8 $(SRC) tests
+	isort $(SRC) --ac -c
+
+format: ## format py files
+	isort $(SRC)
 
 docs: ## generate Sphinx HTML documentation
 	$(MAKE) -C docs clean

@@ -2,12 +2,12 @@
 
 Please update the doc for this handler.
 """
-from os import path, environ
-{%- if cookiecutter.include_custom_utils == "yes" %}
-from utils.logger import get_logger
-{%- else %}
+from os import path
 import logging
-{%- endif %}
+{%- if cookiecutter.include_custom_utils == "yes" %}
+import logging.config
+from utils.logger import get_logger
+{% endif -%}
 
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -17,29 +17,27 @@ from sentry_sdk.integrations.aws_lambda import AwsLambdaIntegration
 
 
 # enable settings and logging based on environment
-ENVIRONMENT = environ.get('ENVIRONMENT', 'development')
 SETTINGS = dict()
+SENTRY_DSN = config('SENTRY_DSN', default=False)
 {%- if cookiecutter.include_custom_utils == "yes" %}
-logger = get_logger(ENVIRONMENT)
+logger = get_logger('{{cookiecutter.package_slug}}')
 {%- else %}
-logger = logging.getLogger(ENVIRONMENT)
+logger = logging.getLogger('{{cookiecutter.package_slug}}')
 {%- endif %}
 logger.setLevel(logging.DEBUG)
 
 # Sentry integration
-if ((ENVIRONMENT == 'staging' or ENVIRONMENT == 'production')
-        and environ.get('SENTRY_DSN')):
+if (SENTRY_DSN):
     sentry_logging = LoggingIntegration(
         level=logging.WARNING,      # Capture warnings and above as breadcrumbs
         event_level=logging.ERROR)  # Send errors as events
     {% if cookiecutter.is_aws_lambda %}
     aws_lambda_logging = AwsLambdaIntegration()
     {% endif -%}
-    # if environment is staging or production, enable sentry
     sentry_sdk.init(
-        dsn=environ.get('SENTRY_DSN'),
+        dsn=SENTRY_DSN,
         integrations=[sentry_logging, {% if cookiecutter.is_aws_lambda %}aws_lambda_logging{% endif %}],
-        environment=ENVIRONMENT)
+    )
 
 __required_keys = ['records']
 
