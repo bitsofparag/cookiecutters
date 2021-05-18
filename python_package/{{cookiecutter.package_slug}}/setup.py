@@ -10,7 +10,7 @@ AUTHOR_EMAIL = environ.get('AUTHOR_EMAIL', '{{cookiecutter.author_email}}')
 PACKAGE_VERSION = environ.get('PACKAGE_VERSION', '0.1.0')
 
 here = path.abspath(path.dirname(__file__))
-readme = io.open(path.join(here, 'README'), 'r', encoding='utf-8').read()
+readme = io.open(path.join(here, 'README.md'), 'r', encoding='utf-8').read()
 requirements = io.open(path.join(here, 'requirements.txt'), 'r').read().splitlines()
 
 

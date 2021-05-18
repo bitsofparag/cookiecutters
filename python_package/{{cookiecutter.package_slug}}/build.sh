@@ -14,7 +14,7 @@ rm -rf $TMP_VENV
 rm -rf *.log
 
 echo "[2/9] Create a new tmp virtual env"
-python -m venv ./$TMP_VENV
+python${PYTHON_MM_VERSION} -m venv ./$TMP_VENV
 
 echo "[3/9] Activating virtual env with python venv"
 source $TMP_VENV/bin/activate

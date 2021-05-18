@@ -18,7 +18,7 @@ from sentry_sdk.integrations.aws_lambda import AwsLambdaIntegration
 
 # enable settings and logging based on environment
 SETTINGS = dict()
-SENTRY_DSN = config('SENTRY_DSN', default=False)
+SENTRY_DSN = config('{{cookiecutter.package_slug.upper()}}_SENTRY_DSN', default=False)
 {%- if cookiecutter.include_custom_utils == "yes" %}
 logger = get_logger('{{cookiecutter.package_slug}}')
 {%- else %}
@@ -32,7 +32,7 @@ if (SENTRY_DSN):
         level=logging.WARNING,      # Capture warnings and above as breadcrumbs
         event_level=logging.ERROR)  # Send errors as events
     {% if cookiecutter.is_aws_lambda %}
-    aws_lambda_logging = AwsLambdaIntegration()
+    aws_lambda_logging = AwsLambdaIntegration(timeout_warning=True)
     {% endif -%}
     sentry_sdk.init(
         dsn=SENTRY_DSN,

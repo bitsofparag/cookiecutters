@@ -22,7 +22,7 @@ from .logger import get_logger
 {%- endif -%}
 
 SETTINGS = dict()
-SENTRY_DSN = config('SENTRY_DSN', default=False)
+SENTRY_DSN = config('{{cookiecutter.package_slug.upper()}}_SENTRY_DSN', default=False)
 here = path.abspath(path.dirname(__file__))
 {% if cookiecutter.include_custom_utils == "yes" -%}
 logger = get_logger('{{cookiecutter.package_slug}}')
