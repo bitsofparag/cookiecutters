@@ -24,7 +24,7 @@ from .logger import get_logger
 SETTINGS = dict()
 SENTRY_DSN = config('{{cookiecutter.package_slug.upper()}}_SENTRY_DSN', default=False)
 here = path.abspath(path.dirname(__file__))
-{% if cookiecutter.include_custom_utils == "yes" -%}
+{% if cookiecutter.include_custom_utils == "yes" %}
 logger = get_logger('{{cookiecutter.package_slug}}')
 {%- else -%}
 logging.basicConfig(format='%(levelname)s - %(message)s', stream=sys.stdout, level=logging.DEBUG)

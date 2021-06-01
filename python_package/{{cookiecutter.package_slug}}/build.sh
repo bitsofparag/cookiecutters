@@ -35,7 +35,7 @@ if [[ -f setup.py ]]; then
     ls -l dist
 else
   python3 -m compileall .
-  zip -rg dist/$PAYLOAD_NAME {%- if cookiecutter.is_aws_lambda == "yes" -%}handler.py{%- else -%}main.py{% endif %} config utils # Append more modules
+  zip -rg dist/$PAYLOAD_NAME .env {%- if cookiecutter.is_aws_lambda == "yes" -%}handler.py{%- else -%}main.py{% endif %} config utils # Append more modules
   zip -rg dist/$PAYLOAD_NAME . -i *.py  # Add python files
 fi
 
