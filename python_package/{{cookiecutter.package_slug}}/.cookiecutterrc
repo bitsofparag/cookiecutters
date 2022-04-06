@@ -2,11 +2,11 @@
 # for regenerating projects (it will generate a .cookiecutterrc
 # automatically for any template). To use it:
 #    pip install cookiepatcher
-#    cookiepatcher nbt-standard-platform/cookiecutters/backend_project project-path
+#    cookiepatcher ${COOKIE_HOME}/python_package <project path>
 #
 # Alternatively, instead of cookiepatcher, you can run:
 #
-#    cookiecutter --overwrite-if-exists --config-file=project-path/.cookiecutterrc nbt-standard-platform/cookiecutters/backend_project
+#    cookiecutter --overwrite-if-exists --config-file=<project path>/.cookiecutterrc $COOKIE_HOME/python_package
 
 default_context:
 {% for key, value in cookiecutter.items()|sort %}
