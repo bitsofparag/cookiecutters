@@ -1,0 +1,11 @@
+{
+  "tf_provider": ["aws", "gcp"],
+  "module_version": "1.0.0",
+  "project_name": "Foo",
+  "project_label": "{{cookiecutter.project_name.lower().replace(' ', '_')}}",
+  "author_name": "Parag M.",
+  "author_email": "admin@bitsofparag.com",
+  "git_provider": ["github", "gitlab", "none"],
+  "git_user_or_group_name": "bitsofparag",
+  "license": ["MIT", "MPL-2.0", "BSD-3", "LGPL-3.0", "AGPL-3.0", "GPL-3.0", "Unlicense"]
+}
