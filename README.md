@@ -21,7 +21,9 @@ You can use this rc file to patch the same project or clone new projects, like s
 ```shell
 cookiecutter --overwrite-if-exists \
   --no-input \
-  --config-file=project-name/.cookiecutterrc \
+  --config-file=your-project-name/.cookiecutterrc \
   --directory=python_package \
   gh:bitsofparag/cookiecutters # or ${COOKIE_HOME}
 ```
+
+_Replace "your-project-name" above with the correct name._
