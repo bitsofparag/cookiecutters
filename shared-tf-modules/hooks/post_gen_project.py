@@ -1,10 +1,7 @@
 import os
-import shutil
 import stat
-import pathlib
 import subprocess
 from typing import List
-from os.path import join
 
 
 def handleError(func, path, exc_info):
