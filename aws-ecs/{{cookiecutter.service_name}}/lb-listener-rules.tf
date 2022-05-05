@@ -1,5 +1,10 @@
+data "aws_lb_listener" "backend_https" {
+  load_balancer_arn = var.alb_arn
+  port              = 443
+}
+
 resource "aws_lb_listener_rule" "service_https" {
-  listener_arn = var.alb_listener_https_arn
+  listener_arn = data.aws_lb_listener.backend_https.arn
 
   dynamic "condition" {
     for_each = var.environment == "prod" ? [1] : []

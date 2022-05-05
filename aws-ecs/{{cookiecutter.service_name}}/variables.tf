@@ -72,10 +72,10 @@ variable "vpc_id" {
   description = "The VPC ID where the target group of {{cookiecutter.service_name}} resides."
 }
 
-variable "alb_listener_https_arn" {
+variable "alb_arn" {
   type        = string
-  default     = "{{cookiecutter.aws_alb_listener_arn}}"
-  description = "The HTTPS listener ARN of the load balancer"
+  default     = "{{cookiecutter.aws_alb_arn}}"
+  description = "The ARN of the (shared) load balancer"
 }
 
 

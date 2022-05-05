@@ -13,7 +13,7 @@
    _(Or use AWS's default VPC - copy vpc id and subnet ids.)_
 
 4. (Optional) if you're using an existing AWS load balancer and/or an existing ECS cluster,
-   obtain the values of `alb_listener_https_arn` & `ecs_cluster_name` respectively.
+   obtain the values of `alb_arn` & `ecs_cluster_name` respectively.
 
 ## How-to
 
@@ -71,12 +71,12 @@ module "{{cookiecutter.service_name}}" {
     data.terraform_remote_state.networking.outputs.sg_all_this_public_id,
     data.terraform_remote_state.networking.outputs.sg_all_subnets_id
   ]
-{% if cookiecutter.aws_alb_listener_arn == "" %}
-  alb_listener_https_arn = module.alb.alb_listener_https.arn # or var.alb_listener_https_arn
+{% if cookiecutter.aws_alb_arn == "" %}
+  alb_arn = module.alb.alb_backend.arn
 {% else %}
-  alb_listener_https_arn = {{cookiecutter.aws_alb_listener_arn}} # or var.alb_listener_https_arn
+  alb_arn = "{{cookiecutter.aws_alb_arn}}"
 {% endif %}
-  ecs_cluster_name = {{cookiecutter.aws_ecs_cluster_name}} # or var.ecs_cluster_name
+  ecs_cluster_name = "{{cookiecutter.aws_ecs_cluster_name}}" # or var.ecs_cluster_name
 
   # service-specific vars below
 {% if cookiecutter.registry_type == 'ecr' %}

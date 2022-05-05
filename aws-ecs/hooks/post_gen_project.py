@@ -4,7 +4,7 @@ import subprocess
 from subprocess import PIPE
 
 if __name__ == "__main__":
-    alb_arn = "{{cookiecutter.aws_alb_listener_arn}}"
+    alb_arn = "{{cookiecutter.aws_alb_arn}}"
     license_script = '''
     curl https://api.github.com/licenses \
       | jq -r '.[] \
