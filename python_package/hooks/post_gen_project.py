@@ -35,6 +35,7 @@ if __name__ == "__main__":
     if include_custom_utils == "no":
         # Keep the config directory but remove the logging.json file
         unlink_if_exists('config/logging.json')
+        unlink_if_exists(package_src + '/logger.py')
 
         # Delete all contents of a directory and handle errors
         shutil.rmtree('utils', onerror=handleError)
@@ -64,13 +65,20 @@ if __name__ == "__main__":
     else:
         unlink_if_exists('build.sh')
 
-    # Create virtualenv with pyenv
-    subprocess.run(["pyenv", "virtualenv", python_version, package_src])
-    subprocess.run(["cp", ".python-version.example", ".python-version"])
+    if shutil.which("pipenv"):
+        subprocess.run(["pipenv", "install", "--python", python_version, "-r", "requirements.txt"])
+        subprocess.run(["pipenv", "install", "--python", python_version, "--dev", "-r", "requirements-dev.txt"])
+    else:
+        subprocess.run(["python", "-m", "venv", ".venv"])
+        subprocess.run(["source", ".venv/bin/activate"])
+        subprocess.run(["pip", "install", "-r", "requirements.txt"])
+        subprocess.run(["pip", "install", "-r", "requirements-dev.txt"])
 
+    # Install pre-commit hooks
     if git_provider != "none":
         subprocess.run(["git", "init", "."])
-        subprocess.run(["ln", "-s", "pre-commit", ".git/hooks/pre-commit"])
+        subprocess.run(["rm", "-rf", ".git/hooks/pre-commit"])
+        subprocess.run(["cp", "pre-commit", ".git/hooks/pre-commit"])
 
 
     print("""

@@ -1,19 +1,10 @@
 .PHONY: build clean clean-test clean-pyc clean-build lint docs help
 .DEFAULT_GOAL := help
-SHELL=/bin/bash
-
-ENVIRONMENT ?=
-
-ifeq ($(ENVIRONMENT), )
-ENVIRONMENT := development
-include .env
-export
-endif
-
-ifeq ($(ENVIRONMENT), $(filter $(ENVIRONMENT), staging prod))
-include .env.$(ENVIRONMENT)
-export
-endif
+ENVIRONMENT ?= local
+PROJECT_ROOT = ${PWD}
+PROJECT_NAME ?= {{cookiecutter.package_slug}}
+PROJECT_NAMESPACE ?= {{cookiecutter.package_namespace}}
+SHELL := /bin/bash
 
 define BROWSER_PYSCRIPT
 import os, webbrowser, sys
@@ -32,7 +23,7 @@ for line in sys.stdin:
 endef
 export PRINT_HELP_PYSCRIPT
 
-SRC=.  # Update with correct path of src files
+SRC = {{cookiecutter.package_slug}}  # Update with correct path of src files
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
 PACKAGE_VERSION ?= 0.1-$(ENVIRONMENT)
 PYTHON_VERSION ?= {{cookiecutter.python_version}}
@@ -68,11 +59,11 @@ test: ## run tests
 	ENVIRONMENT=test nose2 -v --pretty-assert
 
 lint: ## check style with flake8
-	flake8 $(SRC) tests
+	flake8 $(SRC)
 	isort $(SRC) --ac -c
 
 format: ## format py files
-	isort $(SRC)
+	black $(SRC)
 
 docs: ## generate Sphinx HTML documentation
 	$(MAKE) -C docs clean

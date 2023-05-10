@@ -22,7 +22,9 @@ from .logger import get_logger
 {%- endif -%}
 
 SETTINGS = dict()
+{% if cookiecutter.sentry_dsn != "" -%}
 SENTRY_DSN = config('{{cookiecutter.package_slug.upper()}}_SENTRY_DSN', default=False)
+{% endif -%}
 here = path.abspath(path.dirname(__file__))
 {% if cookiecutter.include_custom_utils == "yes" %}
 logger = get_logger('{{cookiecutter.package_slug}}')
@@ -31,6 +33,7 @@ logging.basicConfig(format='%(levelname)s - %(message)s', stream=sys.stdout, lev
 logger = logging.getLogger('{{cookiecutter.package_slug}}')
 {%- endif %}
 
+{% if cookiecutter.sentry_dsn != "" -%}
 # Sentry integration
 if (SENTRY_DSN):
     import sentry_sdk
@@ -42,7 +45,7 @@ if (SENTRY_DSN):
     )  # Send errors as events
     # if environment is staging or production, enable sentry
     sentry_sdk.init(dsn=SENTRY_DSN, integrations=[sentry_logging])
-
+{%- endif %}
 
 def main(*args, **kwargs):
     """Print hello world.

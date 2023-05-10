@@ -1,7 +1,7 @@
 nose2
-flake8>=3.9
+flake8
 isort
-black@git+git://github.com/psf/black
-watchdog>=0.10.2
-Sphinx>=3.0.0
-rinohtype>=0.4.0
+black
+watchdog
+Sphinx
+rinohtype
