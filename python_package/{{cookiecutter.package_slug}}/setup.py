@@ -26,7 +26,7 @@ setup(
     {{cookiecutter.package_description}}
     ''',
     long_description=readme,
-    url='https://{{cookiecutter.git_provider}}.com/{{cookiecutter.git_user_or_group_name}}/{{cookiecutter.package_slug}}.git',
+    url='https://{{cookiecutter.git_provider}}.com/{{cookiecutter.git_user_or_group_name}}/{{cookiecutter.package_slug.replace('_', '-')}}.git',
     packages=find_packages(exclude=['test*']),
     python_requires='!=2.*, >3.0, >={{cookiecutter.python_version}}',
     setup_requires=['wheel'],
@@ -57,7 +57,7 @@ setup(
         'console_scripts': [
     {%- endif %}
             {%- if cookiecutter.is_aws_lambda == "no" %}
-            '{{ cookiecutter.package_slug }} = {{ cookiecutter.package_slug }}.main:main',
+            '{{ cookiecutter.package_slug.replace('_', '-')  }} = {{ cookiecutter.package_slug }}.main:main',
             {%- else %}
             '{{ cookiecutter.package_slug }} = handler',
             {%- endif %}

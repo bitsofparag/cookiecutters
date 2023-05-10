@@ -2,7 +2,6 @@
 .DEFAULT_GOAL := help
 ENVIRONMENT ?= local
 PROJECT_ROOT = ${PWD}
-PROJECT_NAME ?= {{cookiecutter.package_slug}}
 PROJECT_NAMESPACE ?= {{cookiecutter.package_namespace}}
 SHELL := /bin/bash
 
@@ -25,7 +24,7 @@ export PRINT_HELP_PYSCRIPT
 
 SRC = {{cookiecutter.package_slug}}  # Update with correct path of src files
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
-PACKAGE_VERSION ?= 0.1-$(ENVIRONMENT)
+PACKAGE_VERSION ?= 0.1.0
 PYTHON_VERSION ?= {{cookiecutter.python_version}}
 PAYLOAD_NAME := payload-$(PACKAGE_VERSION).zip
 TMP_VENV := tmp-venv

@@ -92,3 +92,9 @@ if __name__ == "__main__":
 {%- endfor %}
 ################################################################################
     """)
+
+    if git_provider != "none":
+        print("""
+        Initialize git repo and make initial commit.
+        The repository name is `{{ cookiecutter.package_slug.replace('_', '-') }}`.
+        """)
