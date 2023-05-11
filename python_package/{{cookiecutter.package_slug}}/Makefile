@@ -58,11 +58,12 @@ test: ## run tests
 	ENVIRONMENT=test nose2 -v --pretty-assert
 
 lint: ## check style with flake8
-	flake8 $(SRC)
-	isort $(SRC) --ac -c
+	flake8 ${SRC}
+	isort ${SRC} --ac -c
 
 format: ## format py files
-	black $(SRC)
+	black ${SRC}
+	isort ${SRC}
 
 docs: ## generate Sphinx HTML documentation
 	$(MAKE) -C docs clean
